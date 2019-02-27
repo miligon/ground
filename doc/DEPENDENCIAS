@@ -1,0 +1,33 @@
+- GNU-RADIO 3.17.11 o superior
+- gr-iio ( plutoSDR )
+- gr-sattools (https://github.com/mndza/gr-sattools)
+
++ Para instalar cualquier modulo adicional:
+     - Al momento de configurar el entorno de compilacion con cmake añadir:
+         *   -DCMAKE_INSTALL_PREFIX=<PREFIJO DE INSTALACION>
+       
+     - El prefijo de instalacion se puede consultar ejecutando:
+        * gnuradio-config-info --prefix
+
+     - Ejemplo para un prefijo de instalacion /usr:
+          cmake -DCMAKE_INSTALL_PREFIX=/usr ../
+
++ Para instalar gr-sattools:
+    git clone https://github.com/mndza/gr-sattools
+    cd gr-sattools
+    mkdir build/
+    cd build
+    cmake -DENABLE_SATTOOLS_ZEROMQ=OFF -DCMAKE_INSTALL_PREFIX=<PREFIJO DE INSTALACION> ../
+    make -j4
+    sudo make install ó make install  (usar sudo si el prefijo de instalacion esta fuera de la carpeta del usuario ej: /usr)
+
++ Liberacion de pluto para el rango de 70-6000MHz:
+    - Conectarse por SSH al pluto a la direccion establecida por ipaddr en el archivo de configuracion, usuario: root y pass: analog
+        # fw_setenv attr_name compatible
+        # fw_setenv attr_val "ad9364"
+        # pluto_reboot reset
+
++ Instalacion de GNU-Radio con modulos para PlutoSDR: https://wiki.analog.com/resources/tools-software/linux-software/gnuradio
+
+
+
