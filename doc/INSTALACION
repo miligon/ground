@@ -1,0 +1,111 @@
+Para instalar GNURADIO version 3.17.1x en Ubuntu seguir los siguientes pasos:
+
+Antes de continuar ejecute: 
+
+    sudo apt update
+
+1) Instalar dependencias segun las version de Ubuntu:
+
+    * Para Ubuntu 18.04:
+
+        sudo apt install cmake git g++ libboost-all-dev python-dev python-mako \
+        python-numpy python-wxgtk3.0 python-sphinx python-cheetah swig libzmq3-dev \
+        libfftw3-dev libgsl-dev libcppunit-dev doxygen libcomedi-dev libqt4-opengl-dev \
+        python-qt4 libqwt-dev libsdl1.2-dev libusb-1.0-0-dev python-gtk2 python-lxml \
+        pkg-config python-sip-dev
+
+    * Para Ubuntu 16.04:
+        
+        sudo apt-get -y install git-core cmake g++ python-dev swig \
+        pkg-config libfftw3-dev libboost-all-dev libcppunit-dev libgsl0-dev \
+        libusb-dev libsdl1.2-dev python-wxgtk3.0 python-numpy \
+        python-cheetah python-lxml doxygen libxi-dev python-sip \
+        libqt4-opengl-dev libqwt-dev libfontconfig1-dev libxrender-dev \
+        python-sip python-sip-dev python-qt4 python-sphinx libusb-1.0-0-dev \
+        libcomedi-dev libzmq-dev
+
+2) Establecer las variables de compilacion:
+
+    export PYTHONPATH=/opt/qt/lib/python2.7/dist-package
+    export PYTHONPATH=/usr/local/lib${type}/python${PYVER}/dist-packages/gnuradio
+
+3) Instalar los paquetes de desarrollo de GNURADIO:
+
+    sudo apt -y install libxml2 libxml2-dev bison flex cmake git libaio-dev libboost-all-dev swig
+
+4) Instale GNURADIO con pybombs en el directorio ~/gnuradio/default:
+
+    sudo pip install pybombs
+    pybombs recipes add gr-recipes git+https://github.com/gnuradio/gr-recipes.git
+    mkdir ~/gnuradio/
+    pybombs prefix init -a default ~/gnuradio/default/ -R gnuradio-default
+
+    * Si pip no está instalado ejecute: "sudo apt install python-pip" para instalarlo
+
+5) Una vez que GNURADIO haya compilado satisfactoriamente ejecutar:
+
+    cd ~/gnuradio/default
+    source ./setup_env.sh
+
+6) Instalar los paquetes para PlutoSDR:
+
+    git clone https://github.com/analogdevicesinc/libiio.git
+    cd libiio
+    cmake -DCMAKE_INSTALL_PREFIX=~/gnuradio/default/ .
+    make 
+    sudo make install
+    cd ..
+
+    git clone https://github.com/analogdevicesinc/libad9361-iio.git
+    cd libad9361-iio
+    cmake -DCMAKE_INSTALL_PREFIX=~/gnuradio/default/ .
+    make 
+    sudo make install
+    cd ..
+
+    git clone https://github.com/analogdevicesinc/gr-iio.git
+    cd gr-iio
+    cmake -DCMAKE_INSTALL_PREFIX=~/gnuradio/default/ .
+    make 
+    sudo make install
+    cd ..
+    sudo ldconfig
+
+7) Copiar las librerias
+
+    cp -r /usr/local/lib/python2.7/dist-packages/gnuradio/iio /usr/lib/python2.7/dist-packages/gnuradio/
+
+8) Instalar gr-satellites:
+
+    * Dependencias:
+
+    sudo apt install python-construct python-requests
+
+    git clone https://github.com/daniestevez/libfec.git
+    cd libfec
+    ./configure
+    make
+    sudo make install
+    cd ..
+    
+    git clone https://github.com/daniestevez/gr-satellites.git
+    cd gr-satellites
+    mkdir build
+    cd build
+    cmake -DCMAKE_INSTALL_PREFIX=~/gnuradio/default/ ..
+    make
+    sudo make install
+    sudo ldconfig
+    cd ..
+    ./compile_hierarchical.sh
+    cd ..
+
+9) Instalar gr-sattools:
+
+    git clone https://github.com/mndza/gr-sattools
+    cd gr-sattools
+    mkdir build/
+    cd build
+    cmake -DENABLE_SATTOOLS_ZEROMQ=OFF -DCMAKE_INSTALL_PREFIX=~/gnuradio/default/ ../
+    make -j4
+    sudo make install
