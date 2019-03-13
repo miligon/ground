@@ -31,7 +31,7 @@ Antes de continuar ejecute:
 
 3) Instalar los paquetes de desarrollo de GNURADIO:
 
-    sudo apt -y install libxml2 libxml2-dev bison flex cmake git libaio-dev libboost-all-dev swig
+    sudo apt -y install libxml2 libxml2-dev bison flex cmake git libaio-dev libboost-all-dev swig python-pip
 
 4) Instale GNURADIO con pybombs en el directorio ~/gnuradio/default:
 
@@ -39,8 +39,6 @@ Antes de continuar ejecute:
     pybombs recipes add gr-recipes git+https://github.com/gnuradio/gr-recipes.git
     mkdir ~/gnuradio/
     pybombs prefix init -a default ~/gnuradio/default/ -R gnuradio-default
-
-    * Si pip no está instalado ejecute: "sudo apt install python-pip" para instalarlo
 
 5) Una vez que GNURADIO haya compilado satisfactoriamente ejecutar:
 
@@ -79,7 +77,8 @@ Antes de continuar ejecute:
 
     * Dependencias:
 
-    sudo apt install python-construct python-requests
+    sudo apt install python-requests
+    sudo pip install contruct
 
     git clone https://github.com/daniestevez/libfec.git
     cd libfec
@@ -109,3 +108,9 @@ Antes de continuar ejecute:
     cmake -DENABLE_SATTOOLS_ZEROMQ=OFF -DCMAKE_INSTALL_PREFIX=~/gnuradio/default/ ../
     make -j4
     sudo make install
+
+10) Para ejecutar:
+    
+    cd ~/gnuradio/default
+    source ./setup_env.sh
+    gnuradio-companion
