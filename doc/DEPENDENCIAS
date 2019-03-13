@@ -27,7 +27,7 @@
         # fw_setenv attr_val "ad9364"
         # pluto_reboot reset
 
-+ Instalacion de GNU-Radio con modulos para PlutoSDR: https://wiki.analog.com/resources/tools-software/linux-software/gnuradio
-
++ Instalacion de GNU-Radio 3.7.9 con modulos para PlutoSDR: https://wiki.analog.com/resources/tools-software/linux-software/gnuradio
+ -> Para instalar una version mas reciente consultar el archivo INSTALACION
 
 
