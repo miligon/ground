@@ -4,7 +4,7 @@
 class cliente
 {
 	private:
-		int sockfd; // Socket de la conexion actual
+		static int sockfd; // Socket de la conexion actual
 		char* ip;
 		int port;
 		

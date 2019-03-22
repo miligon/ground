@@ -11,6 +11,7 @@ class cli
 		void process_commands(bool send = false);
 		void process_text(bool send);
 		void limpiar();
+		void pause()
 		
 	public:
 		cli();

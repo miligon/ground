@@ -12,6 +12,7 @@
 #define _XOPEN_SOURCE_EXTENDED 1
 
 bool cliente::connected = false;
+int cliente::sockfd = 0;
 
 cliente::cliente(char* direccion, int puerto)
 {

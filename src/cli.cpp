@@ -11,6 +11,13 @@ cli::cli()
 	//Nothing here yet!
 }
 
+void cli::pause()
+{
+	printf("\nPresione una tecla para continuar ...");
+	scanf("%");
+	limpiar();
+}
+
 void cli::limpiar()
 {
 	int ch;
@@ -24,16 +31,13 @@ void cli::capturar_string(char data[246])
 	
 	format(33);
 	printf("Ingrese el texto a enviar: ");
-	/*
 	while( (c = getchar())!= '\n' && i < 246 )
 	{
 		data[i] = c;
 		putchar( c );
 		i++;
-	}*/
-	scanf("%246s", data);
-	limpiar();
-	data[strlen(data)-1] = 0;
+	}
+	data[i] = 0;
 	printf("Cadena: %s\nLongitud: %u\n", data, strlen(data));
 }
 
@@ -197,8 +201,7 @@ void cli::process_commands(bool send)
 				system("sleep 0.5s");
 				break;
 		}
-		scanf("%");
-		limpiar();
+		pause();
 	}
 }
 
@@ -211,8 +214,7 @@ void cli::process_text(bool send)
 	
 	capturar_string(buff_in);
 	frame.send_text(buff_in);
-	scanf("%");
-	limpiar();
+	pause();
 }
 
 void cli::run()
@@ -244,8 +246,7 @@ void cli::run()
 				printf("\n\nOpcion no valida!\n");
 				break;
 		}
-		scanf("%");
-		limpiar();
+		pause();
 	}
 }
 
