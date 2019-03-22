@@ -26,6 +26,7 @@ void cli::capturar_string(char data[246])
 		i++;
 	}*/
 	scanf("%246s", data);
+	fflush(stdin);
 	data[strlen(data)-1] = 0;
 	printf("Cadena: %s\nLongitud: %u\n", data, strlen(data));
 }
@@ -39,6 +40,7 @@ void cli::capturar_hex(char data[246])
 	while( i < 246 )
 	{
 		scanf("%u", &c);
+		fflush(stdin);
 		data[i] = (char)c;
 		if(c == 0xA)
 			break;
@@ -79,6 +81,7 @@ int cli::menu()
 	printf("\n\n");
 	format(32);
 	printf("\tOption selected: "); scanf("%u", &opcion);
+	fflush(stdin);
 	return opcion;
 }
 
@@ -97,6 +100,7 @@ int cli::menu_comandos()
 	printf("\n\n");
 	format(32);
 	printf("\tOpcion seleccionada: "); scanf("%u", &opcion);
+	fflush(stdin);
 	return opcion;
 }
 void cli::format(int fg, bool bold, bool underline, bool reset)
@@ -188,6 +192,7 @@ void cli::process_commands(bool send)
 				break;
 		}
 		scanf(%);
+		fflush(stdin);
 	}
 }
 
@@ -201,6 +206,7 @@ void cli::process_text(bool send)
 	capturar_string(buff_in);
 	frame.send_text(buff_in);
 	scanf(%);
+	fflush(stdin);
 }
 
 void cli::run()
@@ -230,10 +236,10 @@ void cli::run()
 			default:
 				format(31);
 				printf("\n\nOpcion no valida!\n");
-				system("read");
 				break;
 		}
 		scanf(%);
+		fflush(stdin);
 	}
 }
 
