@@ -12,6 +12,9 @@ cli::cli()
 	//Nothing here yet!
 }
 
+/**
+ * Muestra una pausa en la terminal
+ */
 void cli::pause()
 {
 	printf("\nPresione una tecla para continuar ...");
@@ -19,12 +22,18 @@ void cli::pause()
 	limpiar();
 }
 
+/**
+ * Limpia el buffer de entrada de STDIN
+ */
 void cli::limpiar()
 {
 	int ch;
 	while ((ch = getchar()) != EOF && ch != '\n') ;
 }
 
+/**
+ * Captura una string
+ */
 void cli::capturar_string(char data[246])
 {	
 	char c= 0;
@@ -42,23 +51,55 @@ void cli::capturar_string(char data[246])
 	printf("Cadena: %s\nLongitud: %u\n", data, strlen(data));
 }
 
+char cli::hexchar_to_int(char hex)
+{
+	if ( hex > 0x2F && hex < 0x3A )
+	{
+		return (hex - 0x30);
+	}
+	if ( hex > 0x40 && hex < 0x47 )
+	{
+		return (hex - 0x37);
+	}
+	return 0;
+}
+
+/**
+ * Captura una serie de hexadecimales
+ */
 void cli::capturar_hex(char data[246])
 {	
-	int c= 0;
+	int c1= 0;
+	int c2= 0;
+	char num[3];
 	int i = 0;
-	
-	format(33);
-	printf("Ingrese los bytes a enviar: ");
 	
 	while( i < 246 )
 	{
-		scanf("%u", &c);
+		header();
+		format(33);
+		printf("Ingrese los bytes a enviar(ingrese ';' para finalizar): \n\n");
+		
+		for ( int a = 0; a < i; a++)
+		{
+			if ( i > 0 )
+			{
+				printf("0x%x ", data[a]);
+			}
+		}
+		
+		scanf("%2s", num);		
 		limpiar();
-		data[i] = (char)c;
-		if(c == 0xA)
+		
+		if(num[0] == ';')
+		{
 			break;
-			
-		printf("0x%x ", data[i] );
+		}
+		else
+		{
+			printf("%x, %x\n", hexchar_to_int(num[0]), hexchar_to_int(num[1]));
+			data[i] = (hexchar_to_int(num[0]) << 0xF) + hexchar_to_int(num[1]);
+		}
 		i++;
 	}
 	
@@ -66,6 +107,9 @@ void cli::capturar_hex(char data[246])
 	printf("Cadena: %s\nLongitud: %u\n", data, strlen(data));
 }
 
+/**
+ * Muestra un header en la terminal
+ */
 void cli::header()
 {
 	system("clear");
@@ -76,6 +120,9 @@ void cli::header()
 	printf("\n");
 }
 
+/**
+ * Muestra el menu principal y devuelve la seleccion del usuario
+ */
 int cli::menu()
 {
 	int opcion = 0;
@@ -86,11 +133,13 @@ int cli::menu()
 	format(32, false, true);
 	printf("\t1) Send predifined command\n");
 	printf("\t2) Send text\n");
-	printf("\t3) Show frame from predifined command\n");
-	printf("\t4) Show frame from text\n");
-	printf("\t5) Calc Golay24\n");
-	printf("\t6) Change CSP Header\n");
-	printf("\t7) Exit\n");
+	printf("\t3) Send hex\n");
+	printf("\t4) Show frame from predifined command\n");
+	printf("\t5) Show frame from text\n");
+	printf("\t6) Show frame from hex\n");
+	printf("\t7) Calc Golay24\n");
+	printf("\t8) Change CSP Header\n");
+	printf("\t9) Exit\n");
 	printf("\n\n");
 	format(32);
 	printf("\tOption selected: "); scanf("%u", &opcion);
@@ -98,6 +147,9 @@ int cli::menu()
 	return opcion;
 }
 
+/**
+ * Muestra el menu de los comandos predefinidos y devuelve el numero del comando elegido
+ */
 int cli::menu_comandos()
 {
 	int opcion = 0;
@@ -116,6 +168,10 @@ int cli::menu_comandos()
 	limpiar();
 	return opcion;
 }
+
+/**
+ * Cambia el formato del texto de la linea de comando
+ */
 void cli::format(int fg, bool bold, bool underline, bool reset)
 {
 /*	
@@ -180,6 +236,9 @@ void cli::format(int fg, bool bold, bool underline, bool reset)
 	}
 }
 
+/**
+ * Procesa el envio de los comandos predefinidos
+ */
 void cli::process_commands(bool send = false)
 {
 	framer frame;
@@ -204,6 +263,9 @@ void cli::process_commands(bool send = false)
 	}
 }
 
+/**
+ * Procesa la captura y el envio de comandos de textos
+ */
 void cli::process_text(bool send = false)
 {
 	char buff_in[cli::MAX_INPUT];
@@ -215,6 +277,23 @@ void cli::process_text(bool send = false)
 	frame.send_text(buff_in, send);
 }
 
+/**
+ * Procesa la captura y el envio de comandos de textos
+ */
+void cli::process_hex(bool send = false)
+{
+	char buff_in[cli::MAX_INPUT];
+	framer frame;
+	
+	header();
+	
+	capturar_hex(buff_in);
+	frame.send_text(buff_in, send);
+}
+
+/**
+ * Procesa el calculo de Golay24
+ */
 void cli::calc_golay()
 {
 	uint32_t len = 0;
@@ -231,6 +310,9 @@ void cli::calc_golay()
 																			 (char)(len) & (0xFF));
 }
 
+/**
+ * Procesa el cambio del CSP HEADER
+ */
 void cli::set_csp()
 {
 	char src = 0;
@@ -248,7 +330,10 @@ void cli::set_csp()
 	frame.new_csp_header(src, dest, p_src, p_dest);
 }
 
-void cli::run()
+/** 
+ * Ciclo principal del programa
+ */
+ void cli::run()
 {
 	int a = 0;
 	while(a != 7)
@@ -263,18 +348,24 @@ void cli::run()
 				process_text(true);
 				break;
 			case 3:
-				process_commands();
+				process_hex(true);
 				break;
 			case 4:
-				process_text();
+				process_commands();
 				break;
 			case 5:
-				calc_golay();
+				process_text();
 				break;
 			case 6:
-				set_csp();
+				process_hex();
 				break;
 			case 7:
+				calc_golay();
+				break;
+			case 8:
+				set_csp();
+				break;
+			case 9:
 				break;
 				break;
 			default:

@@ -1,6 +1,9 @@
 #ifndef _CLIENTE_H
 #define _CLIENTE_H 
  
+/**
+ * Clase para establecer la conexión TCP/IP
+ */
 class cliente
 {
 	private:

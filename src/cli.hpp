@@ -1,6 +1,9 @@
 #ifndef _CLI_H
 #define _CLI_H 
  
+ /**
+  * Clase que se encarga de la interfaz de usuario
+  */
 class cli
 {
 	private:
@@ -10,6 +13,8 @@ class cli
 		void capturar_string(char data[246]);
 		void process_commands(bool send);
 		void process_text(bool send);
+		void process_hex(bool send);
+		char hexchar_to_int(char hex);
 		void limpiar();
 		void pause();
 		void calc_golay();

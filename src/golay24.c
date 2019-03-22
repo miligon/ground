@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright 2017 Daniel Estevez <daniel@destevez.net>.
  *
  * This program is free software; you can redistribute it and/or modify
@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*
+/**
  This algorithm is based on 
  R.H. Morelos-Zaragoza, The Art of Error Correcting Coding, Wiley, 2002; Section 2.2.3
 */
@@ -34,6 +34,8 @@ static const uint32_t H[N] = { 0x8008ed, 0x4001db, 0x2003b5, 0x100769,
 
 #define B(i) (H[i] & 0xfff)
 
+/** Codifica un numero en Golay24.
+ */
 int encode_golay24(uint32_t *data) {
   register uint32_t r = (*data) & 0xfff;
   register uint32_t s;

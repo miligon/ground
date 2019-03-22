@@ -1,3 +1,10 @@
+/**
+ * Programa para enviar datos por GNURADIO con ASM+GOLAY
+ * Autor: Miguel Limón González
+ * Marzo 2019
+ */
+
+
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
@@ -7,6 +14,9 @@
 #include "framer.hpp"
 #include "cli.hpp"
 
+/** 
+ * Inicio del programa.
+ */
 int main()
 {
 	cli interfaz;

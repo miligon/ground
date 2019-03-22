@@ -7,6 +7,7 @@
 #include "golay24.h"
 #include "cli.hpp"
 
+// Variable estática que tiene el valor del header de CSP
 char framer::csp_header[4] = { 0, 0, 0, 0};
 
 framer::framer()
@@ -15,6 +16,9 @@ framer::framer()
 	new_csp_header( 10, 1, 0, 8);
 }
 
+/**
+ * Realiza un hexdump del array de bytes que se le pase por parámetro
+ */
 void framer::hexdump(char str[], int size = 0)
 {
 	int largo = (size == 0 ) ? (sizeof(str)): (size+1);
@@ -23,6 +27,10 @@ void framer::hexdump(char str[], int size = 0)
     }
 }
 
+/**
+ * Cambia el valor de csp_header.
+ * Requiere la especificacion de los puertos de origen  y destino asi como de los puertos de origen y destino
+ */
 void framer::new_csp_header(char src, char dest, char p_src, char p_dest)
 {
 	// Priority: 2 bits
@@ -50,6 +58,10 @@ void framer::new_csp_header(char src, char dest, char p_src, char p_dest)
 	printf("Nuevo header de CSP:\n Byte 1: 0x%x\n Byte 2: 0x%x\n Byte 3: 0x%x\n Byte 4: 0x%x\n", (char)csp_header[0], (char)csp_header[1], (char)csp_header[2], (char)csp_header[3]);
 }
 
+/**
+ * En capsula los datos en un frame de ASM+Golay.
+ * Se pasa como parametro buffer[] y la salida es datos[]
+ */
 void framer::crear(char datos[], char buffer[250], int size = 0)
 {
 	//93 0B 51 DE
@@ -94,6 +106,9 @@ void framer::crear(char datos[], char buffer[250], int size = 0)
 	printf("***********************\n");
 }
 
+/**
+ * Envia un comando predefinido a travez del socket TCP/IP
+ */
 void framer::send_comando(int comando, bool send = true)
 {
 	cliente socket("127.0.0.1", 2500);
@@ -130,6 +145,9 @@ void framer::send_comando(int comando, bool send = true)
 	}
 }
 
+/**
+ * Encapsula y envía un texto a travez de TCP/IP.
+ */
 void framer::send_text(char text[], bool send = true)
 {
 	cliente socket("127.0.0.1", 2500);

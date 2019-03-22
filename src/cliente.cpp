@@ -9,17 +9,24 @@
 #include <unistd.h>
 #include "cliente.hpp"
 
+// Necesario por unistd.h cuando compila con g++
 #define _XOPEN_SOURCE_EXTENDED 1
 
-bool cliente::connected = false;
-int cliente::sockfd = 0;
+bool cliente::connected = false;  //Indica si existe una conexión activa
+int cliente::sockfd = 0;          //Guarda el descriptor del socket
 
+/**
+ * Construye una nueva instancia de cliente a partir de ip y port
+ */
 cliente::cliente(char* direccion, int puerto)
 {
 	ip = direccion;
 	port = puerto;
 }
 
+/**
+ * Conecta con el socket TCP/IP
+ */
 int cliente::conectar()
 {
 	
@@ -45,12 +52,18 @@ int cliente::conectar()
 	return 0;
 }
 
+/**
+ * Envia datos por el socket TCP/IP
+ */
 void cliente::send(char buffer[], int size)
 {
 	write(sockfd,buffer,size);
 	printf("Enviado!, tx: %u bytes\n", size);
 }
 
+/**
+ * Cierra la conexion del socket
+ */
 void cliente::cerrar()
 {
 	close(sockfd);
