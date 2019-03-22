@@ -38,7 +38,7 @@
     </param>
     <param>
       <key>generate_options</key>
-      <value>no_gui</value>
+      <value>qt_gui</value>
     </param>
     <param>
       <key>hier_block_src_path</key>
@@ -157,6 +157,65 @@
     <param>
       <key>minoutbuf</key>
       <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>blks2_tcp_source</key>
+    <param>
+      <key>addr</key>
+      <value>127.0.0.1</value>
+    </param>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(240, 204)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>blks2_tcp_source_0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>server</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>byte</value>
+    </param>
+    <param>
+      <key>port</key>
+      <value>2500</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>1</value>
     </param>
   </block>
   <block>
@@ -383,7 +442,7 @@
     </param>
     <param>
       <key>_enabled</key>
-      <value>0</value>
+      <value>1</value>
     </param>
     <param>
       <key>file</key>
@@ -485,7 +544,7 @@
     </param>
     <param>
       <key>_enabled</key>
-      <value>True</value>
+      <value>0</value>
     </param>
     <param>
       <key>file</key>
@@ -493,7 +552,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(240, 204)</value>
+      <value>(184, 332)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -517,7 +576,7 @@
     </param>
     <param>
       <key>repeat</key>
-      <value>False</value>
+      <value>True</value>
     </param>
     <param>
       <key>vlen</key>
@@ -622,7 +681,7 @@
     </param>
     <param>
       <key>_enabled</key>
-      <value>0</value>
+      <value>1</value>
     </param>
     <param>
       <key>_coordinate</key>
@@ -787,7 +846,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(432, 204)</value>
+      <value>(416, 204)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -834,7 +893,7 @@
     </param>
     <param>
       <key>_enabled</key>
-      <value>True</value>
+      <value>1</value>
     </param>
     <param>
       <key>_coordinate</key>
@@ -866,7 +925,7 @@
     </param>
     <param>
       <key>value</key>
-      <value>/home/sun/gs/ground/src/beacon_tx_upaep</value>
+      <value>/home/sun/Documentos/terminal_beacon/beacon_tx_sin_csp</value>
     </param>
   </block>
   <block>
@@ -1098,7 +1157,7 @@
     </param>
     <param>
       <key>_enabled</key>
-      <value>0</value>
+      <value>1</value>
     </param>
     <param>
       <key>fftsize</key>
@@ -1499,6 +1558,12 @@
   <connection>
     <source_block_id>analog_quadrature_demod_cf_0</source_block_id>
     <sink_block_id>blocks_file_sink_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>blks2_tcp_source_0</source_block_id>
+    <sink_block_id>digital_gfsk_mod_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
