@@ -18,15 +18,15 @@ void cli::capturar_string(char data[246])
 	
 	format(33);
 	printf("Ingrese el texto a enviar: ");
-	
+	/*
 	while( (c = getchar())!= '\n' && i < 246 )
 	{
 		data[i] = c;
 		putchar( c );
 		i++;
-	}
-	
-	data[i] = 0;
+	}*/
+	scanf("%246s", data);
+	data[strlen(data)-1] = 0;
 	printf("Cadena: %s\nLongitud: %u\n", data, strlen(data));
 }
 
