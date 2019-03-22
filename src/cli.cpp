@@ -217,7 +217,7 @@ void cli::process_text(bool send = false)
 
 void cli::calc_golay()
 {
-	uint32_t len = 0
+	uint32_t len = 0;
 	framer frame;
 	
 	header();
