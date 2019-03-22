@@ -12,6 +12,8 @@ class cli
 		void process_text(bool send);
 		void limpiar();
 		void pause();
+		void calc_golay();
+		void set_csp();
 		
 	public:
 		cli();

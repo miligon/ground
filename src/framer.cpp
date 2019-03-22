@@ -9,7 +9,8 @@
 
 framer::framer()
 {
-	// Nothing to do here :(
+	// Al crear la clase se inicializa el array del csp_header
+	new_csp_header( 10, 1, 0, 8);
 }
 
 void framer::hexdump(char str[], int size = 0)
@@ -77,8 +78,6 @@ void framer::crear(char datos[], char buffer[250], int size = 0)
 	golay[2]=(char)(len) & (0xFF);	
 	printf("Golay: %x, 1: %x, 2: %x, 3: %x\n", len, golay[0], golay[1], golay[2]);
 	
-	new_csp_header( 10, 1, 0, 8);
-	
 	printf("***********************\n");
 	frame = (char *) malloc(121 + payload_len);
 	
@@ -93,7 +92,7 @@ void framer::crear(char datos[], char buffer[250], int size = 0)
 	printf("***********************\n");
 }
 
-int framer::send_comando(int comando)
+int framer::send_comando(int comando, bool send = true)
 {
 	cliente socket("127.0.0.1", 2500);
 	cli interfaz;
@@ -101,12 +100,12 @@ int framer::send_comando(int comando)
 	char* buffer;
 	int size = 121;
 	
-	if ( !cliente::connected )
+	if ( !cliente::connected && send)
 	{
 		socket.conectar();
 	}
 	
-	if ( cliente::connected )
+	if ( cliente::connected || !send)
 	{
 		switch(comando)
 		{
@@ -114,10 +113,12 @@ int framer::send_comando(int comando)
 				size += 5;
 				buffer = (char *) malloc(size);
 				crear(buffer, command_test, 5);
-				socket.send(buffer,size);
 				break;
 		}
-		//socket.cerrar();
+		if ( send )
+		{
+			socket.send(buffer,size);
+		}
 	}
 	else
 	{
@@ -127,7 +128,7 @@ int framer::send_comando(int comando)
 	}
 }
 
-int framer::send_text(char text[])
+int framer::send_text(char text[], bool send = true)
 {
 	cliente socket("127.0.0.1", 2500);
 	cli interfaz;
@@ -135,18 +136,20 @@ int framer::send_text(char text[])
 	char* buffer;
 	int size = 121;
 	
-	if ( !cliente::connected )
+	if ( !cliente::connected && send)
 	{
 		socket.conectar();
 	}
 	
-	if ( cliente::connected )
+	if ( cliente::connected || !send )
 	{
 		size += strlen(text);
 		buffer = (char *) malloc(size);
 		crear(buffer, text, strlen(text));
-		socket.send(buffer,size);
-		//socket.cerrar();
+		if ( send )
+		{
+			socket.send(buffer,size);
+		}
 	}
 	else
 	{
@@ -155,3 +158,5 @@ int framer::send_text(char text[])
 		interfaz.format(31,false,false,true);
 	}
 }
+
+void 

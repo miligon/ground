@@ -5,6 +5,7 @@
 #include "cli.hpp"
 #include "cli.hpp"
 #include "framer.hpp"
+#include "golay24.h"
 
 cli::cli()
 {
@@ -45,6 +46,8 @@ void cli::capturar_hex(char data[246])
 {	
 	int c= 0;
 	int i = 0;
+	
+	format(33);
 	printf("Ingrese los bytes a enviar: ");
 	
 	while( i < 246 )
@@ -84,10 +87,10 @@ int cli::menu()
 	printf("\t1) Send predifined command\n");
 	printf("\t2) Send text\n");
 	printf("\t3) Show frame from predifined command\n");
-	printf("\t3) Show frame from text\n");
-	printf("\t4) Calc Golay24\n");
-	printf("\t5) Change CSP Header\n");
-	printf("\t6) Exit\n");
+	printf("\t4) Show frame from text\n");
+	printf("\t5) Calc Golay24\n");
+	printf("\t6) Change CSP Header\n");
+	printf("\t7) Exit\n");
 	printf("\n\n");
 	format(32);
 	printf("\tOption selected: "); scanf("%u", &opcion);
@@ -103,7 +106,7 @@ int cli::menu_comandos()
 	printf("\tSelect the command:\n");
 	printf("\n");
 	format(32, false, true);
-	printf("\t1) Comando 1\n");
+	printf("\t1) Beacon UPAEP\n");
 	printf("\t2) Comando 2\n");
 	printf("\t3) Comando 3\n");
 	printf("\t4) Return\n");
@@ -177,7 +180,7 @@ void cli::format(int fg, bool bold, bool underline, bool reset)
 	}
 }
 
-void cli::process_commands(bool send)
+void cli::process_commands(bool send = false)
 {
 	framer frame;
 	int a = 0;
@@ -186,26 +189,22 @@ void cli::process_commands(bool send)
 		switch(a)
 		{
 			case 1:
-				printf("Opcion 1\n");
-				frame.send_comando(1);
+				frame.send_comando(1, send);
 				break;
 			case 2:
-				printf("Opcion 2\n");
 				break;
 			case 3:
-				printf("Opcion 3\n");
 				break;
 			default:
 				format(31);
 				printf("\n\nOpcion no valida!\n");
-				system("sleep 0.5s");
 				break;
 		}
 		pause();
 	}
 }
 
-void cli::process_text(bool send)
+void cli::process_text(bool send = false)
 {
 	char buff_in[cli::MAX_INPUT];
 	framer frame;
@@ -213,14 +212,48 @@ void cli::process_text(bool send)
 	header();
 	
 	capturar_string(buff_in);
-	frame.send_text(buff_in);
-	pause();
+	frame.send_text(buff_in, send);
+}
+
+void cli::calc_golay()
+{
+	uint32_t len = 0
+	framer frame;
+	
+	header();
+	format(33);
+	printf("\nIngresa la longitud a codificar en Golay24: ");
+	scanf("%u", &len);
+	limpiar();
+	encode_golay24(&len);
+	printf("\nResultado: %x\n Byte 1: %x\n Byte 2: %x\n Byte 3: %x\n ", len, (char)(len >> 16) & (0xFF),
+																			 (char)(len >> 8) & (0xFF),
+																			 (char)(len) & (0xFF));
+    pause();
+}
+
+void cli::set_csp()
+{
+	char src = 0;
+	char dest = 0;
+	char p_src = 0;
+	char p_dest = 0;
+	framer frame;
+	
+	header();
+	format(33);
+	printf("\nIngresa la direccion de origen: "); scanf("%u", src); limpiar();
+	printf("\nIngresa la direccion de destino: "); scanf("%u", dest); limpiar();
+	printf("\nIngresa el puerto de origen: "); scanf("%u", p_src); limpiar();
+	printf("\nIngresa el puerto de destino: "); scanf("%u", p_dest); limpiar();
+	frame.new_csp_header(src, dest, p_src, p_dest);
+    pause();
 }
 
 void cli::run()
 {
 	int a = 0;
-	while(a != 6)
+	while(a != 7)
 	{
 		a = menu();
 		switch(a)
@@ -235,10 +268,15 @@ void cli::run()
 				process_commands();
 				break;
 			case 4:
+				process_text();
 				break;
 			case 5:
+				calc_golay();
 				break;
 			case 6:
+				set_csp();
+				break;
+			case 7:
 				break;
 				break;
 			default:
