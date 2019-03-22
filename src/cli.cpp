@@ -187,7 +187,7 @@ void cli::process_commands(bool send)
 				system("sleep 0.5s");
 				break;
 		}
-		system("pause");
+		system("read");
 	}
 }
 
@@ -200,7 +200,7 @@ void cli::process_text(bool send)
 	
 	capturar_string(buff_in);
 	frame.send_text(buff_in);
-	system("pause");
+	system("read");
 }
 
 void cli::run()
@@ -230,10 +230,10 @@ void cli::run()
 			default:
 				format(31);
 				printf("\n\nOpcion no valida!\n");
-				system("pause");
+				system("read");
 				break;
 		}
-		system("pause");
+		system("read");
 	}
 }
 
