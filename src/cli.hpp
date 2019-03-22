@@ -8,7 +8,7 @@ class cli
 		int menu();
 		void capturar_hex(char data[246]);
 		void capturar_string(char data[246]);
-		void process_commands(bool send = false);
+		void process_commands(bool send);
 		void process_text(bool send);
 		void limpiar();
 		void pause();
