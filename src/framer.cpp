@@ -7,7 +7,7 @@
 #include "golay24.h"
 #include "cli.hpp"
 
-char csp_header[4] = { 0, 0, 0, 0};
+char framer::csp_header[4] = { 0, 0, 0, 0};
 
 framer::framer()
 {
