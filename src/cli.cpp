@@ -229,7 +229,6 @@ void cli::calc_golay()
 	printf("\nResultado: %x\n Byte 1: %x\n Byte 2: %x\n Byte 3: %x\n ", len, (char)(len >> 16) & (0xFF),
 																			 (char)(len >> 8) & (0xFF),
 																			 (char)(len) & (0xFF));
-    pause();
 }
 
 void cli::set_csp()
@@ -242,12 +241,11 @@ void cli::set_csp()
 	
 	header();
 	format(33);
-	printf("\nIngresa la direccion de origen: "); scanf("%u", src); limpiar();
-	printf("\nIngresa la direccion de destino: "); scanf("%u", dest); limpiar();
-	printf("\nIngresa el puerto de origen: "); scanf("%u", p_src); limpiar();
-	printf("\nIngresa el puerto de destino: "); scanf("%u", p_dest); limpiar();
+	printf("\nIngresa la direccion de origen: "); scanf("%u", &src); limpiar();
+	printf("\nIngresa la direccion de destino: "); scanf("%u", &dest); limpiar();
+	printf("\nIngresa el puerto de origen: "); scanf("%u", &p_src); limpiar();
+	printf("\nIngresa el puerto de destino: "); scanf("%u", &p_dest); limpiar();
 	frame.new_csp_header(src, dest, p_src, p_dest);
-    pause();
 }
 
 void cli::run()
