@@ -9,6 +9,7 @@ class cli
 		void capturar_hex(char data[246]);
 		void capturar_string(char data[246]);
 		void process_commands(bool send = false);
+		void process_text(bool send);
 		
 	public:
 		cli();
