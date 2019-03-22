@@ -47,7 +47,7 @@ void framer::new_csp_header(char src, char dest, char p_src, char p_dest)
 	csp_header[1]=(char)(header >> 16) & (0xFF);
 	csp_header[2]=(char)(header >> 8) & (0xFF);
 	csp_header[3]=(char)(header) & (0xFF);
-	printf("header: %x, 1: 0x%x, 2: 0x%x, 3: 0x%x, 4: 0x%x\n", csp_header, csp_header[0], csp_header[1], csp_header[2], csp_header[3]);
+	printf("Nuevo header de CSP:\n Byte 1: 0x%x\n Byte 2: 0x%x\n Byte 3: 0x%x\n Byte 4: 0x%x\n", (char)csp_header[0], (char)csp_header[1], (char)csp_header[2], (char)csp_header[3]);
 }
 
 void framer::crear(char datos[], char buffer[250], int size = 0)
