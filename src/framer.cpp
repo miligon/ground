@@ -92,7 +92,7 @@ void framer::crear(char datos[], char buffer[250], int size = 0)
 	printf("***********************\n");
 }
 
-int framer::send_comando(int comando, bool send = true)
+void framer::send_comando(int comando, bool send = true)
 {
 	cliente socket("127.0.0.1", 2500);
 	cli interfaz;
@@ -128,7 +128,7 @@ int framer::send_comando(int comando, bool send = true)
 	}
 }
 
-int framer::send_text(char text[], bool send = true)
+void framer::send_text(char text[], bool send = true)
 {
 	cliente socket("127.0.0.1", 2500);
 	cli interfaz;
@@ -158,5 +158,3 @@ int framer::send_text(char text[], bool send = true)
 		interfaz.format(31,false,false,true);
 	}
 }
-
-void 
