@@ -187,7 +187,7 @@ void cli::process_commands(bool send)
 				system("sleep 0.5s");
 				break;
 		}
-		system("read -n 1");
+		scanf(%);
 	}
 }
 
@@ -200,7 +200,7 @@ void cli::process_text(bool send)
 	
 	capturar_string(buff_in);
 	frame.send_text(buff_in);
-	system("read -n 1");
+	scanf(%);
 }
 
 void cli::run()
@@ -233,7 +233,7 @@ void cli::run()
 				system("read");
 				break;
 		}
-		system("read -n 1");
+		scanf(%);
 	}
 }
 
