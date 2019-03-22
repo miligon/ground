@@ -7,6 +7,8 @@
 #include "golay24.h"
 #include "cli.hpp"
 
+char csp_header[4] = { 0, 0, 0, 0};
+
 framer::framer()
 {
 	// Al crear la clase se inicializa el array del csp_header
