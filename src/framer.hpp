@@ -13,6 +13,7 @@ class framer
 		void new_csp_header(char src, char dest, char p_src, char p_dest);
 		void crear(char datos[], char buffer[250], int size);
 		int send_comando(int comando);
+		int send_text(char text[])
 };
 
 

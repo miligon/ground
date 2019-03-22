@@ -126,3 +126,32 @@ int framer::send_comando(int comando)
 		interfaz.format(31,false,false,true);
 	}
 }
+
+int framer::send_text(char text[])
+{
+	cliente socket("127.0.0.1", 2500);
+	cli interfaz;
+	
+	char* buffer;
+	int size = 121;
+	
+	if ( !cliente::connected )
+	{
+		socket.conectar();
+	}
+	
+	if ( cliente::connected )
+	{
+		size += strlen(text);
+		buffer = (char *) malloc(size);
+		crear(buffer, text, strlen(text));
+		socket.send(buffer,size);
+		//socket.cerrar();
+	}
+	else
+	{
+		interfaz.format(31);
+		printf("Error de conexión TCP/IP con GNURADIO!\n");
+		interfaz.format(31,false,false,true);
+	}
+}

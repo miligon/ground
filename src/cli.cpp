@@ -15,6 +15,8 @@ void cli::capturar_string(char data[246])
 {	
 	char c= 0;
 	int i = 0;
+	
+	format(33);
 	printf("Ingrese el texto a enviar: ");
 	
 	while( (c = getchar())!= '\n' && i < 246 )
@@ -185,13 +187,26 @@ void cli::process_commands(bool send)
 				system("sleep 0.5s");
 				break;
 		}
+		system("pause");
 	}
+}
+
+void cli::process_text(bool send)
+{
+	char buff_in[cli::MAX_INPUT];
+	framer frame;
+	
+	header();
+	
+	capturar_string(buff_in);
+	frame.send_text(buff_in);
+	system("pause");
 }
 
 void cli::run()
 {
 	int a = 0;
-	while(a != 4)
+	while(a != 6)
 	{
 		a = menu();
 		switch(a)
@@ -200,20 +215,25 @@ void cli::run()
 				process_commands(true);
 				break;
 			case 2:
-				printf("Opcion 2\n");
+				process_text(true);
 				break;
 			case 3:
 				process_commands();
 				break;
 			case 4:
 				break;
+			case 5:
+				break;
+			case 6:
+				break;
 				break;
 			default:
 				format(31);
 				printf("\n\nOpcion no valida!\n");
-				system("sleep 0.5s");
+				system("pause");
 				break;
 		}
+		system("pause");
 	}
 }
 
