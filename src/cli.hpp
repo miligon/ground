@@ -4,7 +4,7 @@
 class cli
 {
 	private:
-		int menu_comandos();
+		int menu_comandos(); //Agregar aqui el case del menu para llamar el comando
 		int menu();
 		void capturar_hex(char data[246]);
 		void capturar_string(char data[246]);

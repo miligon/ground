@@ -282,7 +282,10 @@ void cli::run()
 				printf("\n\nOpcion no valida!\n");
 				break;
 		}
-		pause();
+		if ( a != 7 )
+		{
+			pause();
+		}
 	}
 }
 
