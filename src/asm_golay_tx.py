@@ -117,7 +117,7 @@ class asm_golay_tx(gr.top_block, Qt.QWidget):
 
         self._qtgui_freq_sink_x_0_win = sip.wrapinstance(self.qtgui_freq_sink_x_0.pyqwidget(), Qt.QWidget)
         self.top_grid_layout.addWidget(self._qtgui_freq_sink_x_0_win)
-        self.pluto_sink_0 = iio.pluto_sink('192.168.3.1', int(freq), int(samp_rate), int(1000000), 0x8000, False, 1, '', True)
+        self.pluto_sink_0 = iio.pluto_sink('192.168.2.1', int(freq), int(samp_rate), int(1000000), 0x8000, False, 1, '', True)
         self.digital_gfsk_mod_0 = digital.gfsk_mod(
         	samples_per_symbol=samp_rate/9600,
         	sensitivity=0.009,

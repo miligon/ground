@@ -35,7 +35,7 @@ from gnuradio import qtgui
 
 class asm_golay_tx(gr.top_block, Qt.QWidget):
 
-    def __init__(self, file_tx='/home/sun/Documentos/terminal_beacon/beacon_tx_sin_csp', freq=435400000):
+    def __init__(self, freq=435400000):
         gr.top_block.__init__(self, "GFSK AztechSat-1")
         Qt.QWidget.__init__(self)
         self.setWindowTitle("GFSK AztechSat-1")
@@ -63,7 +63,6 @@ class asm_golay_tx(gr.top_block, Qt.QWidget):
         ##################################################
         # Parameters
         ##################################################
-        self.file_tx = file_tx
         self.freq = freq
 
         ##################################################
@@ -117,7 +116,7 @@ class asm_golay_tx(gr.top_block, Qt.QWidget):
 
         self._qtgui_freq_sink_x_0_win = sip.wrapinstance(self.qtgui_freq_sink_x_0.pyqwidget(), Qt.QWidget)
         self.top_grid_layout.addWidget(self._qtgui_freq_sink_x_0_win)
-        self.pluto_sink_0 = iio.pluto_sink('192.168.3.1', int(freq), int(samp_rate), int(1000000), 0x8000, False, 1, '', True)
+        self.pluto_sink_0 = iio.pluto_sink('192.168.2.1', int(freq), int(samp_rate), int(1000000), 0x8000, False, 1, '', True)
         self.digital_gfsk_mod_0 = digital.gfsk_mod(
         	samples_per_symbol=samp_rate/9600,
         	sensitivity=0.009,
@@ -153,12 +152,6 @@ class asm_golay_tx(gr.top_block, Qt.QWidget):
         self.settings.setValue("geometry", self.saveGeometry())
         event.accept()
 
-    def get_file_tx(self):
-        return self.file_tx
-
-    def set_file_tx(self, file_tx):
-        self.file_tx = file_tx
-
     def get_freq(self):
         return self.freq
 
@@ -180,9 +173,6 @@ class asm_golay_tx(gr.top_block, Qt.QWidget):
 def argument_parser():
     parser = OptionParser(usage="%prog: [options]", option_class=eng_option)
     parser.add_option(
-        "", "--file-tx", dest="file_tx", type="string", default='/home/sun/Documentos/terminal_beacon/beacon_tx_sin_csp',
-        help="Set /home/sun/Documentos/terminal_beacon/beacon_tx_sin_csp [default=%default]")
-    parser.add_option(
         "", "--freq", dest="freq", type="eng_float", default=eng_notation.num_to_str(435400000),
         help="Set freq [default=%default]")
     return parser
@@ -198,7 +188,7 @@ def main(top_block_cls=asm_golay_tx, options=None):
         Qt.QApplication.setGraphicsSystem(style)
     qapp = Qt.QApplication(sys.argv)
 
-    tb = top_block_cls(file_tx=options.file_tx, freq=options.freq)
+    tb = top_block_cls(freq=options.freq)
     tb.start()
     tb.show()
 

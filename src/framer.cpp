@@ -131,6 +131,81 @@ void framer::send_comando(int comando, bool send = true)
 				buffer = (char *) malloc(size);
 				crear(buffer, command_test, 5);
 				break;
+			case 2:
+				size += strlen(command_1);
+				buffer = (char *) malloc(size);
+				crear(buffer, command_1, strlen(command_1));
+				break;
+			case 3:
+				size += strlen(command_2);
+				buffer = (char *) malloc(size);
+				crear(buffer, command_2, strlen(command_2));
+				break;
+			case 4:
+				size += strlen(command_3);
+				buffer = (char *) malloc(size);
+				crear(buffer, command_3, strlen(command_3));
+				break;
+			case 5:
+				size += strlen(command_4);
+				buffer = (char *) malloc(size);
+				crear(buffer, command_4, strlen(command_4));
+				break;
+			case 6:
+				size += strlen(command_5);
+				buffer = (char *) malloc(size);
+				crear(buffer, command_5, strlen(command_5));
+				break;
+			case 7:
+				size += strlen(command_6);
+				buffer = (char *) malloc(size);
+				crear(buffer, command_6, strlen(command_6));
+				break;
+			case 8:
+				size += strlen(command_7);
+				buffer = (char *) malloc(size);
+				crear(buffer, command_7, strlen(command_7));
+				break;
+			case 9:
+				size += strlen(command_8);
+				buffer = (char *) malloc(size);
+				crear(buffer, command_8, strlen(command_8));
+				break;
+			case 10:
+				size += strlen(command_9);
+				buffer = (char *) malloc(size);
+				crear(buffer, command_9, strlen(command_9));
+				break;
+			case 11:
+				size += strlen(command_10);
+				buffer = (char *) malloc(size);
+				crear(buffer, command_10, strlen(command_10));
+				break;
+			case 12:
+				size += strlen(command_11);
+				buffer = (char *) malloc(size);
+				crear(buffer, command_11, strlen(command_11));
+				break;
+			case 13:
+				size += strlen(command_12);
+				buffer = (char *) malloc(size);
+				crear(buffer, command_12, strlen(command_12));
+				break;
+			case 14:
+				size += strlen(command_13);
+				buffer = (char *) malloc(size);
+				crear(buffer, command_13, strlen(command_13));
+				break;
+			case 15:
+				size += strlen(command_14);
+				buffer = (char *) malloc(size);
+				crear(buffer, command_14, strlen(command_14));
+				break;
+			case 16:
+				size += strlen(command_15);
+				buffer = (char *) malloc(size);
+				crear(buffer, command_15, strlen(command_15));
+				break;
 		}
 		if ( send )
 		{

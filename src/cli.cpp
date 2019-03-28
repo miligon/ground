@@ -159,9 +159,22 @@ int cli::menu_comandos()
 	printf("\n");
 	format(32, false, true);
 	printf("\t1) Beacon UPAEP\n");
-	printf("\t2) Comando 2\n");
-	printf("\t3) Comando 3\n");
-	printf("\t4) Return\n");
+	printf("\t2) Comando XE1Rf8\n");
+	printf("\t3) Comando XE15cL\n");
+	printf("\t4) Comando XE1r0C\n");
+	printf("\t5) Comando XE1LfR\n");
+	printf("\t6) Comando XE1Af4\n");
+	printf("\t7) Comando XE14cR\n");
+	printf("\t8) Comando XE1Fs1\n");
+	printf("\t9) Comando XE1L6c\n");
+	printf("\t10) Comando XE1Ml6\n");
+	printf("\t11) Comando XE1A10\n");
+	printf("\t12) Comando XE1H5v\n");
+	printf("\t13) Comando XE1E5l\n");
+	printf("\t14) Comando XE1jCl\n");
+	printf("\t15) Comando XE1eR6\n");
+	printf("\t16) Comando XE103V\n");
+	printf("\t17) Return\n");
 	printf("\n\n");
 	format(32);
 	printf("\tOpcion seleccionada: "); scanf("%u", &opcion);
@@ -243,7 +256,7 @@ void cli::process_commands(bool send = false)
 {
 	framer frame;
 	int a = 0;
-	while((a=menu_comandos()) != 4)
+	while((a=menu_comandos()) != 17)
 	{
 		switch(a)
 		{
@@ -251,8 +264,49 @@ void cli::process_commands(bool send = false)
 				frame.send_comando(1, send);
 				break;
 			case 2:
+				frame.send_comando(2, send);
 				break;
 			case 3:
+				frame.send_comando(3, send);
+				break;
+			case 4:
+				frame.send_comando(4, send);
+				break;
+			case 5:
+				frame.send_comando(5, send);
+				break;
+			case 6:
+				frame.send_comando(6, send);
+				break;
+			case 7:
+				frame.send_comando(7, send);
+				break;
+			case 8:
+				frame.send_comando(8, send);
+				break;
+			case 9:
+				frame.send_comando(9, send);
+				break;
+			case 10:
+				frame.send_comando(10, send);
+				break;
+			case 11:
+				frame.send_comando(11, send);
+				break;
+			case 12:
+				frame.send_comando(12, send);
+				break;
+			case 13:
+				frame.send_comando(13, send);
+				break;
+			case 14:
+				frame.send_comando(14, send);
+				break;
+			case 15:
+				frame.send_comando(15, send);
+				break;
+			case 16:
+				frame.send_comando(16, send);
 				break;
 			default:
 				format(31);
@@ -336,7 +390,7 @@ void cli::set_csp()
  void cli::run()
 {
 	int a = 0;
-	while(a != 7)
+	while(a != 9)
 	{
 		a = menu();
 		switch(a)
@@ -373,7 +427,7 @@ void cli::set_csp()
 				printf("\n\nOpcion no valida!\n");
 				break;
 		}
-		if ( a != 7 )
+		if ( a != 9 )
 		{
 			pause();
 		}
