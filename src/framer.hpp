@@ -11,7 +11,7 @@ class framer
 		/**
 		 *  Aqui se pueden programar los comandos de telecomando y telemetria.
 		 */
-		char command_test[5] = { 0x55, 0x50, 0x41, 0x45, 0x50};
+		char command_test[3] = "UP";
 		char command_1[7] = "XE1Rf8";
 		char command_2[7] = "XE15cL";
 		char command_3[7] = "XE1r0C";
@@ -21,12 +21,15 @@ class framer
 		char command_7[7] = "XE1Fs1";
 		char command_8[7] = "XE1L6c";
 		char command_9[7] = "XE1Ml6";
-		char command_10[7] = "XE1A10";
-		char command_11[7] = "XE1H5v";
+		char command_10[7] = "XE1A10";//no?
+		char command_11[7] = "XE1H5v";//no?
 		char command_12[7] = "XE1E5l";
 		char command_13[7] = "XE1jCl";
 		char command_14[7] = "XE1eR6";
 		char command_15[7] = "XE103V";
+		char command_16[7] = "5DsH5v";
+		char command_17[7] = "sd5Eu4";
+		char command_18[7] = "N544Mn";
 
 		
 	public:

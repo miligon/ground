@@ -4,8 +4,10 @@
 # GNU Radio Python Flow Graph
 # Title: GFSK AztechSat-1
 # Author: MLG
-# GNU Radio version: 3.7.13.4
+# Generated: Thu Mar 28 14:52:03 2019
 ##################################################
+
+from distutils.version import StrictVersion
 
 if __name__ == '__main__':
     import ctypes
@@ -17,7 +19,8 @@ if __name__ == '__main__':
         except:
             print "Warning: failed to XInitThreads()"
 
-from PyQt4 import Qt
+from PyQt5 import Qt
+from PyQt5 import Qt, QtCore
 from gnuradio import blocks
 from gnuradio import digital
 from gnuradio import eng_notation
@@ -57,8 +60,11 @@ class asm_golay_tx(gr.top_block, Qt.QWidget):
         self.top_layout.addLayout(self.top_grid_layout)
 
         self.settings = Qt.QSettings("GNU Radio", "asm_golay_tx")
-        self.restoreGeometry(self.settings.value("geometry").toByteArray())
 
+        if StrictVersion(Qt.qVersion()) < StrictVersion("5.0.0"):
+            self.restoreGeometry(self.settings.value("geometry").toByteArray())
+        else:
+            self.restoreGeometry(self.settings.value("geometry", type=QtCore.QByteArray))
 
         ##################################################
         # Parameters
@@ -115,7 +121,7 @@ class asm_golay_tx(gr.top_block, Qt.QWidget):
             self.qtgui_freq_sink_x_0.set_line_alpha(i, alphas[i])
 
         self._qtgui_freq_sink_x_0_win = sip.wrapinstance(self.qtgui_freq_sink_x_0.pyqwidget(), Qt.QWidget)
-        self.top_grid_layout.addWidget(self._qtgui_freq_sink_x_0_win)
+        self.top_layout.addWidget(self._qtgui_freq_sink_x_0_win)
         self.pluto_sink_0 = iio.pluto_sink('192.168.2.1', int(freq), int(samp_rate), int(1000000), 0x8000, False, 1, '', True)
         self.digital_gfsk_mod_0 = digital.gfsk_mod(
         	samples_per_symbol=samp_rate/9600,
@@ -126,8 +132,6 @@ class asm_golay_tx(gr.top_block, Qt.QWidget):
         )
         self.blocks_throttle_0 = blocks.throttle(gr.sizeof_gr_complex*1, samp_rate,True)
         self.blocks_multiply_const_vxx_1 = blocks.multiply_const_vcc((1, ))
-        self.blocks_file_sink_0_1 = blocks.file_sink(gr.sizeof_gr_complex*1, '/home/sun/Documentos/data_out.txt', False)
-        self.blocks_file_sink_0_1.set_unbuffered(False)
         self.blks2_tcp_source_0 = grc_blks2.tcp_source(
         	itemsize=gr.sizeof_char*1,
         	addr='127.0.0.1',
@@ -135,15 +139,12 @@ class asm_golay_tx(gr.top_block, Qt.QWidget):
         	server=True,
         )
 
-
-
         ##################################################
         # Connections
         ##################################################
         self.connect((self.blks2_tcp_source_0, 0), (self.digital_gfsk_mod_0, 0))
         self.connect((self.blocks_multiply_const_vxx_1, 0), (self.blocks_throttle_0, 0))
         self.connect((self.blocks_multiply_const_vxx_1, 0), (self.pluto_sink_0, 0))
-        self.connect((self.blocks_throttle_0, 0), (self.blocks_file_sink_0_1, 0))
         self.connect((self.blocks_throttle_0, 0), (self.qtgui_freq_sink_x_0, 0))
         self.connect((self.digital_gfsk_mod_0, 0), (self.blocks_multiply_const_vxx_1, 0))
 
@@ -182,8 +183,7 @@ def main(top_block_cls=asm_golay_tx, options=None):
     if options is None:
         options, _ = argument_parser().parse_args()
 
-    from distutils.version import StrictVersion
-    if StrictVersion(Qt.qVersion()) >= StrictVersion("4.5.0"):
+    if StrictVersion("4.5.0") <= StrictVersion(Qt.qVersion()) < StrictVersion("5.0.0"):
         style = gr.prefs().get_string('qtgui', 'style', 'raster')
         Qt.QApplication.setGraphicsSystem(style)
     qapp = Qt.QApplication(sys.argv)
@@ -195,7 +195,7 @@ def main(top_block_cls=asm_golay_tx, options=None):
     def quitting():
         tb.stop()
         tb.wait()
-    qapp.connect(qapp, Qt.SIGNAL("aboutToQuit()"), quitting)
+    qapp.aboutToQuit.connect(quitting)
     qapp.exec_()
 
 

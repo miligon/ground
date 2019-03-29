@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 #include "framer.hpp"
 #include "cliente.hpp"
 #include "golay24.h"
@@ -115,6 +116,8 @@ void framer::send_comando(int comando, bool send = true)
 	cli interfaz;
 	
 	char* buffer;
+	char* buffer_time; 
+	uint64_t tiempo = time(NULL);
 	int size = 121;
 	
 	if ( !cliente::connected && send)
@@ -127,9 +130,16 @@ void framer::send_comando(int comando, bool send = true)
 		switch(comando)
 		{
 			case 1:
-				size += 5;
+				size += 7;
 				buffer = (char *) malloc(size);
-				crear(buffer, command_test, 5);
+				buffer_time = (char *) malloc(7);
+				memcpy(buffer_time, command_test, 3);
+				buffer_time[3] = (char)((tiempo >> 24) & 0xFF);
+				buffer_time[4] = (char)((tiempo >> 16) & 0xFF);
+				buffer_time[5] = (char)((tiempo >> 8) & 0xFF);
+				buffer_time[6] = (char)((tiempo) & 0xFF);
+				hexdump(buffer_time);
+				crear(buffer, buffer_time, 7);
 				break;
 			case 2:
 				size += strlen(command_1);
@@ -203,6 +213,21 @@ void framer::send_comando(int comando, bool send = true)
 				break;
 			case 16:
 				size += strlen(command_15);
+				buffer = (char *) malloc(size);
+				crear(buffer, command_15, strlen(command_15));
+				break;
+			case 17:
+				size += strlen(command_16);
+				buffer = (char *) malloc(size);
+				crear(buffer, command_15, strlen(command_15));
+				break;
+			case 18:
+				size += strlen(command_17);
+				buffer = (char *) malloc(size);
+				crear(buffer, command_15, strlen(command_15));
+				break;
+			case 19:
+				size += strlen(command_18);
 				buffer = (char *) malloc(size);
 				crear(buffer, command_15, strlen(command_15));
 				break;

@@ -158,7 +158,7 @@ int cli::menu_comandos()
 	printf("\tSelect the command:\n");
 	printf("\n");
 	format(32, false, true);
-	printf("\t1) Beacon UPAEP\n");
+	printf("\t1) Comando UP + Unix Time\n");
 	printf("\t2) Comando XE1Rf8\n");
 	printf("\t3) Comando XE15cL\n");
 	printf("\t4) Comando XE1r0C\n");
@@ -174,7 +174,10 @@ int cli::menu_comandos()
 	printf("\t14) Comando XE1jCl\n");
 	printf("\t15) Comando XE1eR6\n");
 	printf("\t16) Comando XE103V\n");
-	printf("\t17) Return\n");
+	printf("\t17) Comando 5DsH5v\n");
+	printf("\t18) Comando sd5Eu4\n");
+	printf("\t19) Comando N544Mn\n");
+	printf("\t20) Return\n");
 	printf("\n\n");
 	format(32);
 	printf("\tOpcion seleccionada: "); scanf("%u", &opcion);
@@ -256,7 +259,7 @@ void cli::process_commands(bool send = false)
 {
 	framer frame;
 	int a = 0;
-	while((a=menu_comandos()) != 17)
+	while((a=menu_comandos()) != 20)
 	{
 		switch(a)
 		{
@@ -307,6 +310,15 @@ void cli::process_commands(bool send = false)
 				break;
 			case 16:
 				frame.send_comando(16, send);
+				break;
+			case 17:
+				frame.send_comando(17, send);
+				break;
+			case 18:
+				frame.send_comando(18, send);
+				break;
+			case 19:
+				frame.send_comando(19, send);
 				break;
 			default:
 				format(31);

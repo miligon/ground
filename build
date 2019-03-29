@@ -1,2 +1,3 @@
 g++ src/*.cpp src/*.c -o term
-#./term
+./src/asm_golay_tx.py&
+./term
